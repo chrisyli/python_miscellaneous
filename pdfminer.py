@@ -1,6 +1,17 @@
-import os
-os.chdir("...")
+import os, fnmatch
+
+os.chdir(".")
 print(os.listdir(os.getcwd()))
+
+for file in os.listdir(os.getcwd()):
+    if fnmatch.fnmatch(file, "*.py"):
+        print(file)
+
+'''
+for root, dirs, files in os.walk(os.getcwd()):  
+    for file in files:
+        print(file)
+'''
 
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.converter import TextConverter
@@ -12,7 +23,7 @@ from io import StringIO
 def convert_pdf_to_txt(path):
     rsrcmgr = PDFResourceManager()
     retstr = StringIO()
-    codec = 'utf-8'
+    codec = "utf-8"
     laparams = LAParams(char_margin=10, line_margin=0.5, word_margin=0.1)
     device = TextConverter(rsrcmgr, retstr, codec=codec, laparams=laparams)
 #    device = PDFPageAggregator(rsrcmgr, laparams=laparams)
